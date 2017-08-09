@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360dp"
+    android:layout_height="610dp"
+    android:orientation="vertical"
+    android:background="@color/bronze_yellow"
+    >
+
+    <Button
+        android:id="@+id/MainFragment_btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_middle"
+        android:text="存放单词"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/MainFragment_btn_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_middle"
+        android:text="背单词"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        />
+
+
+</LinearLayout>

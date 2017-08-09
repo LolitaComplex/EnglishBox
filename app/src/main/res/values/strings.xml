@@ -1,0 +1,23 @@
+<resources>
+
+    <string-array name="Collection_Item">
+        <item>精品</item>
+        <item>青铜</item>
+        <item>金银</item>
+        <item>书画</item>
+        <item>金桐</item>
+        <item>精品</item>
+        <item>青铜</item>
+        <item>金银</item>
+        <item>书画</item>
+        <item>金桐</item>
+        <item>精品</item>
+        <item>青铜</item>
+        <item>金银</item>
+        <item>书画</item>
+        <item>金桐</item>
+    </string-array>
+
+    <string name="app_name">EnglishBox</string>
+
+</resources>

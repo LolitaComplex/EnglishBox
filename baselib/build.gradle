@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'android-apt'
+
+
+android {
+
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
+    defaultConfig {
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile commonDependencies.supportAppcompat
+    compile commonDependencies.supportDesign
+    compile commonDependencies.supportRecyclerView
+    compile commonDependencies.butterKnife
+    apt commonDependencies.butterKnifeApt
+
+    compile commonDependencies.glide
+    compile commonDependencies.glideOkHttp
+    compile commonDependencies.gson
+    compile commonDependencies.rxlifecycle
+    compile commonDependencies.rxlifecycleComponents
+
+}
