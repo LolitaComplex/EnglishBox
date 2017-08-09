@@ -1,15 +1,14 @@
 package com.doing.englishbox.data.entity;
 
-import com.doing.englishbox.data.greendao.AboutItemDao;
-import com.doing.englishbox.data.greendao.ChineseDao;
-import com.doing.englishbox.data.greendao.DaoSession;
-
-import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.ToOne;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
+import com.doing.englishbox.data.greendao.DaoSession;
+import com.doing.englishbox.data.greendao.ChineseDao;
+import com.doing.englishbox.data.greendao.AboutItemDao;
 
 /**
  * Class description here
@@ -19,23 +18,23 @@ import org.greenrobot.greendao.annotation.ToOne;
  * @since 2017-08-02.
  */
 @Entity
-public class AboutItem {
+public class AboutItem implements Item{
 
     @Id(autoincrement = true)
-    private Long aboutId;
+    private Long id;
+
+    private Long aboutOtherId;
 
     @ToOne(joinProperty = "aboutOtherId")
     private AboutItem item;
 
-    private Long aboutOtherId;
-
     @Index(unique = true)
     private String content;
 
+    private Long chineseId;
+
     @ToOne(joinProperty = "chineseId")
     private Chinese chinese;
-
-    private Long chineseId;
 
     private Long boxItemId;
 
@@ -47,16 +46,11 @@ public class AboutItem {
     @Generated(hash = 1632368313)
     private transient AboutItemDao myDao;
 
-    @Generated(hash = 1864644456)
-    private transient Long item__resolvedKey;
 
-    @Generated(hash = 1835936282)
-    private transient Long chinese__resolvedKey;
-
-    @Generated(hash = 402033187)
-    public AboutItem(Long aboutId, Long aboutOtherId, String content, Long chineseId,
+    @Generated(hash = 92748999)
+    public AboutItem(Long id, Long aboutOtherId, String content, Long chineseId,
             Long boxItemId) {
-        this.aboutId = aboutId;
+        this.id = id;
         this.aboutOtherId = aboutOtherId;
         this.content = content;
         this.chineseId = chineseId;
@@ -67,6 +61,13 @@ public class AboutItem {
     public AboutItem() {
     }
 
+    @Generated(hash = 1864644456)
+    private transient Long item__resolvedKey;
+
+    @Generated(hash = 1835936282)
+    private transient Long chinese__resolvedKey;
+
+
     public Long getBoxItemId() {
         return boxItemId;
     }
@@ -75,13 +76,12 @@ public class AboutItem {
         this.boxItemId = boxItemId;
     }
 
-
-    public Long getAboutId() {
-        return aboutId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAboutId(Long aboutId) {
-        this.aboutId = aboutId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -90,6 +90,22 @@ public class AboutItem {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getAboutOtherId() {
+        return this.aboutOtherId;
+    }
+
+    public void setAboutOtherId(Long aboutOtherId) {
+        this.aboutOtherId = aboutOtherId;
+    }
+
+    public Long getChineseId() {
+        return this.chineseId;
+    }
+
+    public void setChineseId(Long chineseId) {
+        this.chineseId = chineseId;
     }
 
     /** To-one relationship, resolved on first access. */
@@ -112,12 +128,41 @@ public class AboutItem {
     }
 
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 782788041)
+    @Generated(hash = 972677657)
     public void setItem(AboutItem item) {
         synchronized (this) {
             this.item = item;
-            aboutOtherId = item == null ? null : item.getAboutId();
+            aboutOtherId = item == null ? null : item.getId();
             item__resolvedKey = aboutOtherId;
+        }
+    }
+
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 1596988088)
+    public Chinese getChinese() {
+        Long __key = this.chineseId;
+        if (chinese__resolvedKey == null || !chinese__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            ChineseDao targetDao = daoSession.getChineseDao();
+            Chinese chineseNew = targetDao.load(__key);
+            synchronized (this) {
+                chinese = chineseNew;
+                chinese__resolvedKey = __key;
+            }
+        }
+        return chinese;
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1485501826)
+    public void setChinese(Chinese chinese) {
+        synchronized (this) {
+            this.chinese = chinese;
+            chineseId = chinese == null ? null : chinese.getId();
+            chinese__resolvedKey = chineseId;
         }
     }
 
@@ -164,48 +209,5 @@ public class AboutItem {
         myDao = daoSession != null ? daoSession.getAboutItemDao() : null;
     }
 
-    public Long getAboutOtherId() {
-        return this.aboutOtherId;
-    }
-
-    public void setAboutOtherId(Long aboutOtherId) {
-        this.aboutOtherId = aboutOtherId;
-    }
-
-    public Long getChineseId() {
-        return this.chineseId;
-    }
-
-    public void setChineseId(Long chineseId) {
-        this.chineseId = chineseId;
-    }
-
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 1596988088)
-    public Chinese getChinese() {
-        Long __key = this.chineseId;
-        if (chinese__resolvedKey == null || !chinese__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            ChineseDao targetDao = daoSession.getChineseDao();
-            Chinese chineseNew = targetDao.load(__key);
-            synchronized (this) {
-                chinese = chineseNew;
-                chinese__resolvedKey = __key;
-            }
-        }
-        return chinese;
-    }
-
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 670412746)
-    public void setChinese(Chinese chinese) {
-        synchronized (this) {
-            this.chinese = chinese;
-            chineseId = chinese == null ? null : chinese.getChineseId();
-            chinese__resolvedKey = chineseId;
-        }
-    }
+    
 }

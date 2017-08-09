@@ -18,20 +18,19 @@ import com.doing.englishbox.data.greendao.SentenceDao;
  * @since 2017-08-07.
  */
 @Entity
-public class Sentence {
+public class Sentence implements Item{
 
     @Id(autoincrement = true)
-    private Long sentenceId;
+    private Long id;
 
     @NotNull
     private String content;
 
+    private Long chineseId;
+
     @ToOne(joinProperty = "chineseId")
     private Chinese chinese;
-
-    private Long chineseId;
     private Long boxItemId;
-
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -41,10 +40,10 @@ public class Sentence {
     @Generated(hash = 159520501)
     private transient SentenceDao myDao;
 
-    @Generated(hash = 620748164)
-    public Sentence(Long sentenceId, @NotNull String content, Long chineseId,
+    @Generated(hash = 1928824282)
+    public Sentence(Long id, @NotNull String content, Long chineseId,
             Long boxItemId) {
-        this.sentenceId = sentenceId;
+        this.id = id;
         this.content = content;
         this.chineseId = chineseId;
         this.boxItemId = boxItemId;
@@ -57,6 +56,15 @@ public class Sentence {
     @Generated(hash = 1835936282)
     private transient Long chinese__resolvedKey;
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getContent() {
         return content;
     }
@@ -65,20 +73,20 @@ public class Sentence {
         this.content = content;
     }
 
-    public Long getSentenceId() {
-        return this.sentenceId;
-    }
-
-    public void setSentenceId(Long sentenceId) {
-        this.sentenceId = sentenceId;
-    }
-
     public Long getChineseId() {
         return this.chineseId;
     }
 
     public void setChineseId(Long chineseId) {
         this.chineseId = chineseId;
+    }
+
+    public Long getBoxItemId() {
+        return this.boxItemId;
+    }
+
+    public void setBoxItemId(Long boxItemId) {
+        this.boxItemId = boxItemId;
     }
 
     /** To-one relationship, resolved on first access. */
@@ -101,11 +109,11 @@ public class Sentence {
     }
 
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 670412746)
+    @Generated(hash = 1485501826)
     public void setChinese(Chinese chinese) {
         synchronized (this) {
             this.chinese = chinese;
-            chineseId = chinese == null ? null : chinese.getChineseId();
+            chineseId = chinese == null ? null : chinese.getId();
             chinese__resolvedKey = chineseId;
         }
     }
@@ -153,12 +161,6 @@ public class Sentence {
         myDao = daoSession != null ? daoSession.getSentenceDao() : null;
     }
 
-    public Long getBoxItemId() {
-        return this.boxItemId;
-    }
 
-    public void setBoxItemId(Long boxItemId) {
-        this.boxItemId = boxItemId;
-    }
 
 }

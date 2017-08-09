@@ -3,9 +3,6 @@ package com.doing.englishbox.data.entity;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
-import org.greenrobot.greendao.annotation.ToMany;
-
-import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -16,19 +13,19 @@ import org.greenrobot.greendao.annotation.Generated;
  * @since 2017-08-02.
  */
 @Entity
-public class Chinese {
+public class Chinese implements Item {
 
     @Id(autoincrement = true)
-    private Long chineseId;
+    private Long id;
 
     private Long boxItemId;
 
     @NotNull
     private String content;
 
-    @Generated(hash = 378564136)
-    public Chinese(Long chineseId, Long boxItemId, @NotNull String content) {
-        this.chineseId = chineseId;
+    @Generated(hash = 177720952)
+    public Chinese(Long id, Long boxItemId, @NotNull String content) {
+        this.id = id;
         this.boxItemId = boxItemId;
         this.content = content;
     }
@@ -37,20 +34,21 @@ public class Chinese {
     public Chinese() {
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Long getChineseId() {
-        return chineseId;
-    }
-
-    public void setChineseId(Long chineseId) {
-        this.chineseId = chineseId;
     }
 
     public Long getBoxItemId() {

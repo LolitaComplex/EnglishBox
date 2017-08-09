@@ -1,5 +1,7 @@
 package com.doing.englishbox.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.doing.englishbox.R;
@@ -15,6 +17,11 @@ import com.doing.englishbox.ui.fragment.SaveEnglishFragment;
  */
 
 public class SaveEnglishActivity extends AppBaseActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, SaveEnglishActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     protected int getLayoutId() {

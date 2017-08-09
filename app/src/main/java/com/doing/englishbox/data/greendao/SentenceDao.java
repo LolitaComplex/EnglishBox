@@ -31,7 +31,7 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property SentenceId = new Property(0, Long.class, "sentenceId", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Content = new Property(1, String.class, "content", false, "CONTENT");
         public final static Property ChineseId = new Property(2, Long.class, "chineseId", false, "CHINESE_ID");
         public final static Property BoxItemId = new Property(3, Long.class, "boxItemId", false, "BOX_ITEM_ID");
@@ -54,7 +54,7 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SENTENCE\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: sentenceId
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"CONTENT\" TEXT NOT NULL ," + // 1: content
                 "\"CHINESE_ID\" INTEGER," + // 2: chineseId
                 "\"BOX_ITEM_ID\" INTEGER);"); // 3: boxItemId
@@ -70,9 +70,9 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
     protected final void bindValues(DatabaseStatement stmt, Sentence entity) {
         stmt.clearBindings();
  
-        Long sentenceId = entity.getSentenceId();
-        if (sentenceId != null) {
-            stmt.bindLong(1, sentenceId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getContent());
  
@@ -91,9 +91,9 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
     protected final void bindValues(SQLiteStatement stmt, Sentence entity) {
         stmt.clearBindings();
  
-        Long sentenceId = entity.getSentenceId();
-        if (sentenceId != null) {
-            stmt.bindLong(1, sentenceId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
         stmt.bindString(2, entity.getContent());
  
@@ -122,7 +122,7 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
     @Override
     public Sentence readEntity(Cursor cursor, int offset) {
         Sentence entity = new Sentence( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // sentenceId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // content
             cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // chineseId
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3) // boxItemId
@@ -132,7 +132,7 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
      
     @Override
     public void readEntity(Cursor cursor, Sentence entity, int offset) {
-        entity.setSentenceId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setContent(cursor.getString(offset + 1));
         entity.setChineseId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setBoxItemId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
@@ -140,14 +140,14 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
     
     @Override
     protected final Long updateKeyAfterInsert(Sentence entity, long rowId) {
-        entity.setSentenceId(rowId);
+        entity.setId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(Sentence entity) {
         if(entity != null) {
-            return entity.getSentenceId();
+            return entity.getId();
         } else {
             return null;
         }
@@ -155,7 +155,7 @@ public class SentenceDao extends AbstractDao<Sentence, Long> {
 
     @Override
     public boolean hasKey(Sentence entity) {
-        return entity.getSentenceId() != null;
+        return entity.getId() != null;
     }
 
     @Override

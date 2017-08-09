@@ -27,7 +27,7 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property ChineseId = new Property(0, Long.class, "chineseId", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property BoxItemId = new Property(1, Long.class, "boxItemId", false, "BOX_ITEM_ID");
         public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
     }
@@ -46,7 +46,7 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CHINESE\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: chineseId
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"BOX_ITEM_ID\" INTEGER," + // 1: boxItemId
                 "\"CONTENT\" TEXT NOT NULL );"); // 2: content
     }
@@ -61,9 +61,9 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
     protected final void bindValues(DatabaseStatement stmt, Chinese entity) {
         stmt.clearBindings();
  
-        Long chineseId = entity.getChineseId();
-        if (chineseId != null) {
-            stmt.bindLong(1, chineseId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
  
         Long boxItemId = entity.getBoxItemId();
@@ -77,9 +77,9 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
     protected final void bindValues(SQLiteStatement stmt, Chinese entity) {
         stmt.clearBindings();
  
-        Long chineseId = entity.getChineseId();
-        if (chineseId != null) {
-            stmt.bindLong(1, chineseId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
  
         Long boxItemId = entity.getBoxItemId();
@@ -97,7 +97,7 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
     @Override
     public Chinese readEntity(Cursor cursor, int offset) {
         Chinese entity = new Chinese( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // chineseId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // boxItemId
             cursor.getString(offset + 2) // content
         );
@@ -106,21 +106,21 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
      
     @Override
     public void readEntity(Cursor cursor, Chinese entity, int offset) {
-        entity.setChineseId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setBoxItemId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setContent(cursor.getString(offset + 2));
      }
     
     @Override
     protected final Long updateKeyAfterInsert(Chinese entity, long rowId) {
-        entity.setChineseId(rowId);
+        entity.setId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(Chinese entity) {
         if(entity != null) {
-            return entity.getChineseId();
+            return entity.getId();
         } else {
             return null;
         }
@@ -128,7 +128,7 @@ public class ChineseDao extends AbstractDao<Chinese, Long> {
 
     @Override
     public boolean hasKey(Chinese entity) {
-        return entity.getChineseId() != null;
+        return entity.getId() != null;
     }
 
     @Override

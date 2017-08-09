@@ -32,7 +32,7 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property AboutId = new Property(0, Long.class, "aboutId", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property AboutOtherId = new Property(1, Long.class, "aboutOtherId", false, "ABOUT_OTHER_ID");
         public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
         public final static Property ChineseId = new Property(3, Long.class, "chineseId", false, "CHINESE_ID");
@@ -56,7 +56,7 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ABOUT_ITEM\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: aboutId
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"ABOUT_OTHER_ID\" INTEGER," + // 1: aboutOtherId
                 "\"CONTENT\" TEXT," + // 2: content
                 "\"CHINESE_ID\" INTEGER," + // 3: chineseId
@@ -76,9 +76,9 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
     protected final void bindValues(DatabaseStatement stmt, AboutItem entity) {
         stmt.clearBindings();
  
-        Long aboutId = entity.getAboutId();
-        if (aboutId != null) {
-            stmt.bindLong(1, aboutId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
  
         Long aboutOtherId = entity.getAboutOtherId();
@@ -106,9 +106,9 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
     protected final void bindValues(SQLiteStatement stmt, AboutItem entity) {
         stmt.clearBindings();
  
-        Long aboutId = entity.getAboutId();
-        if (aboutId != null) {
-            stmt.bindLong(1, aboutId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
  
         Long aboutOtherId = entity.getAboutOtherId();
@@ -146,7 +146,7 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
     @Override
     public AboutItem readEntity(Cursor cursor, int offset) {
         AboutItem entity = new AboutItem( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // aboutId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // aboutOtherId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // content
             cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // chineseId
@@ -157,7 +157,7 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
      
     @Override
     public void readEntity(Cursor cursor, AboutItem entity, int offset) {
-        entity.setAboutId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setAboutOtherId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setContent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setChineseId(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
@@ -166,14 +166,14 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
     
     @Override
     protected final Long updateKeyAfterInsert(AboutItem entity, long rowId) {
-        entity.setAboutId(rowId);
+        entity.setId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(AboutItem entity) {
         if(entity != null) {
-            return entity.getAboutId();
+            return entity.getId();
         } else {
             return null;
         }
@@ -181,7 +181,7 @@ public class AboutItemDao extends AbstractDao<AboutItem, Long> {
 
     @Override
     public boolean hasKey(AboutItem entity) {
-        return entity.getAboutId() != null;
+        return entity.getId() != null;
     }
 
     @Override

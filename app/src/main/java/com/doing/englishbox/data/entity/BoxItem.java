@@ -1,19 +1,20 @@
 package com.doing.englishbox.data.entity;
 
+import com.doing.englishbox.data.greendao.AboutItemDao;
+import com.doing.englishbox.data.greendao.BoxItemDao;
+import com.doing.englishbox.data.greendao.ChineseDao;
+import com.doing.englishbox.data.greendao.DaoSession;
+import com.doing.englishbox.data.greendao.SentenceDao;
+
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.ToMany;
 
 import java.util.List;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
-import com.doing.englishbox.data.greendao.DaoSession;
-import com.doing.englishbox.data.greendao.SentenceDao;
-import com.doing.englishbox.data.greendao.AboutItemDao;
-import com.doing.englishbox.data.greendao.ChineseDao;
-import com.doing.englishbox.data.greendao.BoxItemDao;
 
 /**
  * Class description here
@@ -23,7 +24,7 @@ import com.doing.englishbox.data.greendao.BoxItemDao;
  * @since 2017-08-02.
  */
 @Entity
-public class BoxItem {
+public class BoxItem implements Item {
 
     @Id(autoincrement = true)
     private Long id;

@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.artron.baselib.base.BaseStaticFragment;
 import com.doing.englishbox.R;
+import com.doing.englishbox.ui.activity.SaveEnglishActivity;
 import com.doing.englishbox.ui.adapter.BoxPageAdapter;
 
 import butterknife.BindView;
@@ -51,7 +52,7 @@ public class MainFragment extends BaseStaticFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.MainFragment_btn_save:
-
+                SaveEnglishActivity.start(mContext);
                 break;
 
             case R.id.MainFragment_btn_show:

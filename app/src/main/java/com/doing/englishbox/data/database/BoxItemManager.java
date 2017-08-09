@@ -4,11 +4,22 @@ import com.doing.englishbox.data.config.AppProfile;
 import com.doing.englishbox.data.entity.AboutItem;
 import com.doing.englishbox.data.entity.BoxItem;
 import com.doing.englishbox.data.entity.Chinese;
+import com.doing.englishbox.data.entity.Item;
 import com.doing.englishbox.data.entity.Sentence;
 import com.doing.englishbox.data.greendao.AboutItemDao;
 import com.doing.englishbox.data.greendao.BoxItemDao;
 import com.doing.englishbox.data.greendao.ChineseDao;
 import com.doing.englishbox.data.greendao.SentenceDao;
+
+import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.query.WhereCondition;
+
+import java.util.List;
+
+import rx.functions.Action2;
+
+import static android.R.attr.action;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 
 /**
@@ -39,20 +50,67 @@ public class BoxItemManager {
     }
 
     public <T> long add(T item) {
-        long result;
+        long result = 1;
         if (item instanceof BoxItem) {
-            result = sBoxItemDao.insertOrReplace((BoxItem) item);
+            BoxItem boxItem = (BoxItem) item;
+            insertOrUpdate(sBoxItemDao, boxItem,
+                    BoxItemDao.Properties.Content.eq(boxItem.getContent()));
         } else if (item instanceof Chinese) {
-            result = sChineseDao.insertOrReplace((Chinese) item);
+            Chinese chinesItem = (Chinese) item;
+            insertOrUpdate(sChineseDao, chinesItem,
+                    ChineseDao.Properties.Content.eq(chinesItem.getContent()));
         } else if (item instanceof AboutItem) {
-            result = sAboutItemDao.insertOrReplace((AboutItem) item);
-        } else if (item instanceof SentenceDao) {
-            result = sSentenceDao.insertOrReplace((Sentence) item);
+            AboutItem aboutItem = (AboutItem) item;
+            insertOrUpdate(sAboutItemDao, aboutItem,
+                    AboutItemDao.Properties.Content.eq(aboutItem.getContent()));
+        } else if (item instanceof Sentence) {
+            Sentence sentenceItem = (Sentence) item;
+            insertOrUpdate(sSentenceDao, sentenceItem,
+                    SentenceDao.Properties.Content.eq(sentenceItem.getContent()));
         } else {
             result = -1;
         }
 
         return result;
+    }
+
+    private <S extends AbstractDao<T, Long>, T extends Item> void insertOrUpdate(S dao , T item, WhereCondition condition) {
+        List<T> list = dao.queryBuilder()
+                .where(condition)
+                .build()
+                .list();
+
+        if (list.size() > 0) {
+            T updateItem = list.get(0);
+            updateItem.setContent(item.getContent());
+            dao.update(updateItem);
+        } else {
+            dao.insert(item);
+        }
+    }
+
+    public List<BoxItem> getBoxItemList() {
+        return sBoxItemDao.queryBuilder()
+                .build()
+                .list();
+    }
+
+    public List<Chinese> getChineseList() {
+        return sChineseDao.queryBuilder()
+                .build()
+                .list();
+    }
+
+    public List<AboutItem> getAboutList() {
+        return sAboutItemDao.queryBuilder()
+                .build()
+                .list();
+    }
+
+    public List<Sentence> getSentenceList() {
+        return sSentenceDao.queryBuilder()
+                .build()
+                .list();
     }
 
 }
